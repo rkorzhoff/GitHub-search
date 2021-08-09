@@ -10,8 +10,8 @@ export default abstract class AbstractAPIClass implements APIType{
     readonly searchQuery:string = ''
     readonly sortQuery?: string = ''
     protected constructor(searchQuery: string, sortQuery?:string) {
-        this.searchQuery = 'q=' + searchQuery
-        sortQuery ? this.sortQuery = 'sort' + sortQuery : this.sortQuery = ''
+        this.searchQuery = searchQuery
+        sortQuery ? (this.sortQuery = 'sort' + sortQuery) : (this.sortQuery = '')
     }
 
 }

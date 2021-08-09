@@ -3,6 +3,10 @@
     <h2>Search user</h2>
     <input type="text" v-model="searchQuery">
     <button @click="getUser">Search</button>
+    <div class="item" v-if="items.length" v-for="item in items">
+      <span>{{item.id}}</span>
+      <span>{{item.login}}</span>
+    </div>
   </div>
 </template>
 
@@ -13,16 +17,17 @@ import {AxiosResponse} from 'axios';
 @Component
 export default class Main extends Vue{
 searchQuery: string = ''
+  items:any = []
   getUser(){
     new APISearch(this.searchQuery).APICall().then((res:AxiosResponse) => {
-      console.log(res)
+      // console.log(res)
+      this.items.push(...res.data.items)
+      console.log(this.items)
     }).catch(err => {
       console.log(err)
     })
   }
-  created(){
-    this.getUser()
-  }
+
 }
 </script>
 

@@ -6,7 +6,7 @@ export default class APISearch extends AbstractAPIClass {
         super(searchQuery, sortQuery);
     }
     APICall(){
-        const queryString = encodeURIComponent(`${this.searchQuery} in:login ${this.sortQuery}`)
+        const queryString ='q=' + encodeURIComponent(`${this.searchQuery} in:login ${this.sortQuery}`)
         return axios({
             method: 'get',
             url: `${this.API_URL}users?${queryString}`
