@@ -8,6 +8,16 @@ module.exports = {
         filename: 'bundle.js',
         path: path.resolve(__dirname, 'dist'),
     },
+    devServer: {
+        port: 8081,
+        proxy: {
+            '/api': {
+                target: 'https://api.github.com',
+                secure: false,
+                changeOrigin: true
+            },
+        },
+    },
 
     module: {
 
