@@ -1,37 +1,34 @@
 <template>
-  <div>
-    <h2>Search user</h2>
-    <input type="text" v-model="searchQuery">
-    <button @click="getUser">Search</button>
-    <div class="item" v-if="items.length" v-for="item in items">
-      <span>{{item.id}}</span>
-      <span>{{item.login}}</span>
-    </div>
+  <div class="main-container">
+    <TheSearch v-model="items" />
+    <CardsList v-if="items.length" :items="items" />
   </div>
 </template>
 
 <script lang="ts">
-import {Vue, Component} from 'vue-property-decorator';
-import APISearch from '@/network/APISearch';
-import {AxiosResponse} from 'axios';
-@Component
-export default class Main extends Vue{
-searchQuery: string = ''
-  items:any = []
-  getUser(){
-    new APISearch(this.searchQuery).APICall().then((res:AxiosResponse) => {
-      // console.log(res)
-      this.items.push(...res.data.items)
-      console.log(this.items)
-    }).catch(err => {
-      console.log(err)
-    })
-  }
-
+import { Vue, Component } from 'vue-property-decorator'
+import CardsList from '@/components/cards/CardsList.vue'
+import TheSearch from '@/components/TheSearch.vue'
+import Item from '@/entities/Item'
+@Component({
+  components: { TheSearch, CardsList },
+})
+export default class Main extends Vue {
+  items: Item[] = []
 }
 </script>
 
-<style>
-
-
+<style scoped>
+.main-container {
+  display: flex;
+  flex-direction: column;
+  margin: 20px 20px;
+  padding: 15px 0;
+  width: 90vw;
+  height: auto;
+  background-color: rgba(0, 0, 0, 0.05);
+  border-radius: 16px;
+  box-shadow: 1px 1px 18px 0 rgba(34, 60, 80, 0.2);
+  transition: all 1s ease;
+}
 </style>
