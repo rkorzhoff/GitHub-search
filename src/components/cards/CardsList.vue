@@ -1,17 +1,34 @@
 <template>
-  <div class="list-container" :class="{ filled: items.length }">
+  <div class="list-container">
     <CardsItem v-for="(item, index) in items" :item="item" :key="index" />
   </div>
 </template>
 <script lang="ts">
-import { Vue, Component, Prop } from 'vue-property-decorator'
+import { Vue, Component, Prop, VModel } from 'vue-property-decorator'
 import CardsItem from './CardsItem.vue'
 import Item from '@/entities/Item'
 @Component({
   components: { CardsItem },
 })
 export default class CardsList extends Vue {
-  @Prop() items!: Item[]
+  @VModel() page!: number
+  @Prop() readonly items!: Item[]
+
+  scrollToLastEl(ev: any) {
+    if (
+      ev.target.scrollingElement.scrollTop +
+        ev.target.scrollingElement.clientHeight >=
+      ev.target.scrollingElement.scrollHeight
+    ) {
+      this.page++
+    }
+  }
+  created() {
+    window.addEventListener('scroll', this.scrollToLastEl)
+  }
+  destroyed() {
+    window.removeEventListener('scroll', this.scrollToLastEl)
+  }
 }
 </script>
 <style>

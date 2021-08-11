@@ -16,6 +16,7 @@ export default class App extends Vue {}
   min-height: 100vh;
 }
 * {
+  font-family: Roboto, sans-serif;
   margin: 0;
   padding: 0;
   box-sizing: border-box;

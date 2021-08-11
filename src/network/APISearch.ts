@@ -2,16 +2,14 @@ import AbstractAPIClass from '@/network/AbstractAPIClass'
 import axios from 'axios'
 
 export default class APISearch extends AbstractAPIClass {
-  constructor(searchQuery: string, sortQuery?: string) {
-    super(searchQuery, sortQuery)
+  constructor(searchQuery: string, page: string, sortQuery?: string) {
+    super(searchQuery, page, sortQuery)
   }
   APICall() {
-    const queryString =
-      'q=' +
-      encodeURIComponent(`${this.searchQuery} in:login ${this.sortQuery}`)
+    const qParams = 'q=' + encodeURIComponent(`${this.searchQuery} in:login `)
     return axios({
       method: 'get',
-      url: `${this.API_URL}users?${queryString}`,
+      url: `${this.API_URL}users?${qParams}${this.page}${this.sortQuery}`,
     })
   }
 }

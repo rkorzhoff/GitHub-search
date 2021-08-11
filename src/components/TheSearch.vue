@@ -3,29 +3,25 @@
     <h2 class="search-header">Search user</h2>
     <div class="input-wrapper">
       <input type="text" v-model="searchQuery" class="search-input" />
-      <button @click="searchUsers">Search</button>
+      <button @click="searchUsers" class="search-btn">Search</button>
+      <button v-if="isFilled" @click.prevent="sortResults()" class="sort-btn">
+        SORT
+      </button>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { Vue, Component, VModel, Prop } from 'vue-property-decorator'
-import Item from '@/entities/Item'
-import { namespace } from 'vuex-class'
-import IItems from '@/store/modules/items'
-const Items = namespace('Items')
+import { Vue, Component, Emit, Prop } from 'vue-property-decorator'
 @Component
 export default class TheSearch extends Vue {
-  @VModel() items!: Item[]
+  @Prop() readonly sortResults!: Function
   searchQuery: string = ''
-
-  @Items.Action
-  private APISearch!: (searchQuery: string) => Promise<IItems[]>
-
+  isFilled = false
+  @Emit('search-users')
   searchUsers() {
-    this.APISearch(this.searchQuery).then(() => {
-      this.items = this.$store.state.Items.users
-    })
+    this.isFilled = true
+    return this.searchQuery
   }
 }
 </script>
@@ -36,8 +32,29 @@ export default class TheSearch extends Vue {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 100%;
-  height: fit-content;
+  width: 60%;
+  height: 100px;
   margin-bottom: 50px;
+  background-color: rgba(0, 0, 0, 0.05);
+  border-radius: 16px;
+  box-shadow: 1px 1px 18px 0 rgba(34, 60, 80, 0.2);
+}
+.search-header {
+  margin-bottom: 10px;
+}
+.search-btn,
+.sort-btn {
+  background-color: #fff;
+  border: 1px solid #666666;
+  padding: 2px 5px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.search-btn:hover,
+.sort-btn:hover {
+  background-color: #53d0ff;
+  color: #fff;
+  border-color: #53d0ff;
 }
 </style>

@@ -12,9 +12,17 @@ class Items extends VuexModule {
   }
 
   @Action
-  public async APISearch(searchQuery: string) {
+  public async APISearch(params: {
+    searchQuery: string
+    page: string
+    sort?: string
+  }) {
     try {
-      const searchResult = await new APISearch(searchQuery).APICall()
+      const searchResult = await new APISearch(
+        params.searchQuery,
+        params.page,
+        params.sort
+      ).APICall()
       this.context.commit('fillUsersList', searchResult.data.items)
     } catch (err) {
       console.log(err)
