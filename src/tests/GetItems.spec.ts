@@ -2,7 +2,7 @@ import axios from 'axios'
 import MockAdapter from 'axios-mock-adapter'
 import APISearch from '../network/APISearch'
 describe('APISearch', () => {
-  it('returns data when sendMessage is called', async () => {
+  it('returns status', async () => {
     const status = 200
     const mock = new MockAdapter(axios)
     mock
