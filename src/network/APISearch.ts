@@ -1,4 +1,4 @@
-import AbstractAPIClass from '@/network/AbstractAPIClass'
+import AbstractAPIClass from './AbstractAPIClass'
 import axios from 'axios'
 
 export default class APISearch extends AbstractAPIClass {

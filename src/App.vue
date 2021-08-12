@@ -21,4 +21,8 @@ export default class App extends Vue {}
   padding: 0;
   box-sizing: border-box;
 }
+a {
+  color: #000;
+  text-decoration: none;
+}
 </style>

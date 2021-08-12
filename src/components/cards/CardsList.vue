@@ -34,8 +34,9 @@ export default class CardsList extends Vue {
 <style>
 .list-container {
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
   align-items: center;
+  justify-content: center;
   width: 100%;
 }
 </style>

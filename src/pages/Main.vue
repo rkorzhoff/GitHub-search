@@ -68,7 +68,7 @@ export default class Main extends Vue {
   align-items: center;
   margin: 20px 20px;
   padding: 15px 0;
-  width: 100%;
+  max-width: 1200px;
   height: auto;
 }
 </style>

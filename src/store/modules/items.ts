@@ -4,11 +4,14 @@ import APISearch from '@/network/APISearch'
 
 @Module({ namespaced: true })
 class Items extends VuexModule {
-  public users: Item[] = []
+  public users: Item[] = localStorage.getItem('users')
+    ? JSON.parse(localStorage.getItem('users') || '')
+    : []
 
   @Mutation
   public fillUsersList(items: Item[]): void {
     this.users = items
+    localStorage.setItem('users', JSON.stringify(this.users))
   }
 
   @Action
@@ -23,6 +26,7 @@ class Items extends VuexModule {
         params.page,
         params.sort
       ).APICall()
+      console.log(searchResult)
       this.context.commit('fillUsersList', searchResult.data.items)
     } catch (err) {
       console.log(err)
