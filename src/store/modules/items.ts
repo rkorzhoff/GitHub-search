@@ -26,7 +26,6 @@ class Items extends VuexModule {
         params.page,
         params.sort
       ).APICall()
-      console.log(searchResult)
       this.context.commit('fillUsersList', searchResult.data.items)
     } catch (err) {
       console.log(err)
